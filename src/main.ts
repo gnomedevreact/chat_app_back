@@ -11,7 +11,11 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   app.useGlobalGuards(new AuthGuard(new PrismaService()));
-  app.enableCors();
+  app.enableCors({
+    allowedHeaders: ["content-type"],
+    origin: "https://chat-app-three-swart.vercel.app/",
+    credentials: true,
+  });
   await app.listen(port);
 }
 bootstrap();
