@@ -7,9 +7,11 @@ import { PrismaService } from "./prisma_service/prisma.service";
 env.config();
 
 async function bootstrap() {
+  const port = process.env.PORT || 5000;
+
   const app = await NestFactory.create(AppModule);
   app.useGlobalGuards(new AuthGuard(new PrismaService()));
   app.enableCors();
-  await app.listen(5000);
+  await app.listen(port);
 }
 bootstrap();
